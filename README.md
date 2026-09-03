@@ -4,11 +4,13 @@ Velocity Child Theme
 Child Theme for the Velocity System WordPress theme.
 
 ### Usage
-Simply download the zip and upload the zip (velocity-child-theme-master.zip) under your WordPress dashboard at Appearance > Themes. Or extract and upload via FTP at wp-content/themes/.
+Download the versioned ZIP from GitHub Releases and upload it from the WordPress
+dashboard under Appearance > Themes. You can also extract it and upload the
+`velocity-spa` directory to `wp-content/themes/` via FTP.
 
+### Release
 
-### Renaming
-You can of course rename the zip file so it isn't called velocity-child-master.zip (you should do this so it makes more sense) and also change the "Theme Name" at the top of the style.css file.
-
-### Download
-v1.1.0 - [Download](https://github.com/VelocityDeveloper/velocity-child/releases/download/v1.1.0/velocity-child.zip)
+Update the `Version` header in `style.css`, then push the change to the `main`
+branch. GitHub Actions will create a tag and release automatically. The release
+asset is named `velocity-spa-{version}.zip`, while its top-level directory stays
+`velocity-spa`.

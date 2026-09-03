@@ -1,0 +1,97 @@
+name: Release child theme
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - style.css
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read and validate theme version
+        id: theme
+        shell: bash
+        run: |
+          version="$(sed -nE 's/^[[:space:]]*Version:[[:space:]]*([^[:space:]]+).*/\1/p' style.css | head -n 1)"
+
+          if [[ -z "$version" ]]; then
+            echo "Version header was not found in style.css" >&2
+            exit 1
+          fi
+
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid theme version: $version" >&2
+            exit 1
+          fi
+
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            previous_version="$(git show '${{ github.event.before }}:style.css' 2>/dev/null | sed -nE 's/^[[:space:]]*Version:[[:space:]]*([^[:space:]]+).*/\1/p' | head -n 1 || true)"
+            if [[ "$version" == "$previous_version" ]]; then
+              echo "The Version header did not change; no release is needed."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+
+          slug="${GITHUB_REPOSITORY#*/}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+          echo "archive=$slug-$version.zip" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure version has not already been released
+        if: steps.theme.outputs.changed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.theme.outputs.tag }}
+        run: |
+          if git rev-parse --verify --quiet "refs/tags/$TAG" >/dev/null; then
+            echo "Tag $TAG already exists. Increment Version in style.css." >&2
+            exit 1
+          fi
+
+      - name: Build theme ZIP
+        if: steps.theme.outputs.changed == 'true'
+        shell: bash
+        env:
+          SLUG: ${{ steps.theme.outputs.slug }}
+          ARCHIVE: ${{ steps.theme.outputs.archive }}
+        run: |
+          mkdir -p "build/$SLUG"
+          git archive HEAD | tar -x -C "build/$SLUG"
+          rm -rf "build/$SLUG/.github"
+          (
+            cd build
+            zip -qr "../$ARCHIVE" "$SLUG"
+          )
+          unzip -l "$ARCHIVE"
+
+      - name: Create GitHub Release
+        if: steps.theme.outputs.changed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.theme.outputs.tag }}
+          VERSION: ${{ steps.theme.outputs.version }}
+          ARCHIVE: ${{ steps.theme.outputs.archive }}
+        run: |
+          gh release create "$TAG" "$ARCHIVE" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Version $VERSION" \
+            --generate-notes
