@@ -6,6 +6,7 @@
  */
 $fasilitas_layanan = get_post_meta($post->ID, 'fasilitas', true);
 $fasilitas_layanan = is_array($fasilitas_layanan) ? $fasilitas_layanan : array();
+$harga_layanan = velocity_spa_service_price(get_the_ID());
 ?>
 <article <?php post_class('col-lg-4 col-md-6 col-12 mb-4'); ?> id="post-<?php the_ID(); ?>">
     <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden">
@@ -14,6 +15,9 @@ $fasilitas_layanan = is_array($fasilitas_layanan) ? $fasilitas_layanan : array()
         </div>
         <div class="card-body d-flex flex-column gap-3 p-4">
             <h2 class="h5 fw-bold text-center m-0"><a class="text-dark" href="<?php echo esc_url(get_permalink()); ?>" rel="bookmark"><?php echo esc_html(wp_trim_words(get_the_title(), 5)); ?></a></h2>
+            <?php if ($harga_layanan) : ?>
+                <p class="h5 fw-bold text-colortheme text-center mb-0"><?php echo esc_html($harga_layanan); ?></p>
+            <?php endif; ?>
             <ul class="spa-service-features list-unstyled d-grid gap-2 text-body-secondary m-0">
             <?php foreach($fasilitas_layanan as $fasilitas): ?>
                 <li class="d-flex align-items-start gap-2 border-0 p-0 m-0 lh-sm">

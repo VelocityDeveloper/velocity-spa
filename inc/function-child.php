@@ -173,6 +173,32 @@ if (!function_exists('velocity_spa_archive_title')) {
 }
 add_filter('get_the_archive_title', 'velocity_spa_archive_title');
 
+if (!function_exists('velocity_spa_author_display_name')) {
+	function velocity_spa_author_display_name($author_name)
+	{
+		$author_id = (int) get_the_author_meta('ID');
+		if (!$author_id) {
+			return $author_name;
+		}
+
+		$display_name = get_the_author_meta('display_name', $author_id);
+		return $display_name ? $display_name : $author_name;
+	}
+}
+add_filter('the_author', 'velocity_spa_author_display_name');
+
+if (!function_exists('velocity_spa_posted_on_time')) {
+	function velocity_spa_posted_on_time($time_string)
+	{
+		return sprintf(
+			'<time class="entry-date published updated" datetime="%1$s">%2$s</time>',
+			esc_attr(get_the_date('c')),
+			esc_html(get_the_date())
+		);
+	}
+}
+add_filter('justg_posted_on_time', 'velocity_spa_posted_on_time');
+
 if (!function_exists('velocity_spa_unregister_fourth_footer_sidebar')) {
 	function velocity_spa_unregister_fourth_footer_sidebar()
 	{
@@ -400,11 +426,15 @@ if (!function_exists('justg_right_sidebar_check')) {
 	}
 }
 
-if (!function_exists('velocity_number_money')) {
-function velocity_number_money($number = null) {
-    if(empty($number))
-    return false;
+if (!function_exists('velocity_spa_service_price')) {
+	function velocity_spa_service_price($post_id = null)
+	{
+		$post_id = $post_id ? absint($post_id) : get_the_ID();
+		$price = (float) get_post_meta($post_id, 'harga', true);
+		if ($price <= 0) {
+			return '';
+		}
 
-    return 'Rp '.number_format((float)$number,0,',','.');    
-}
+		return 'Rp ' . number_format($price, 0, ',', '.');
+	}
 }

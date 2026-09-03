@@ -16,15 +16,15 @@ get_header();
 $container = velocity_spa_get_option('justg_container_type', 'container');
 ?>
 
-<div class="wrapper" id="archive-wrapper">
+<div class="wrapper archive-shell" id="archive-wrapper">
 
     <div class="<?php echo esc_attr($container); ?>" id="content" tabindex="-1">
 
-        <div class="row m-0">
+        <div class="row">
             <!-- Do the left sidebar check -->
             <?php //do_action('justg_before_content'); ?>
 
-            <main class="site-main col order-2 px-0" id="main">
+            <main class="site-main archive-main" id="main">
 
                 <?php
 
@@ -37,7 +37,7 @@ $container = velocity_spa_get_option('justg_container_type', 'container');
 						?>
                     </header><!-- .page-header -->
 
-                    <div class="row m-0">
+                    <div class="row">
                     <?php
                     // Start the loop.
                     while (have_posts()) { the_post();

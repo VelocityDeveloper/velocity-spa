@@ -48,7 +48,7 @@ $sliders = velocity_spa_get_sliders();
                 
                 // Loop untuk menampilkan post
                 if ($layanan_query->have_posts()) : ?>
-                    <h3 class="titleLayanan text-light text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_layanan', __('Layanan Kami', 'justg'))); ?></span></h3>
+                    <h3 class="titleLayanan text-dark text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_layanan', __('Layanan Kami', 'justg'))); ?></span></h3>
                     <div class="row mt-5">
                     <?php
                         // Start the loop.
@@ -74,7 +74,7 @@ $sliders = velocity_spa_get_sliders();
                     ];
                     $product_query = new WP_Query($args);
                     if ($product_query->have_posts()) { ?>
-                    <h3 class="titleLayanan text-light text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_team', __('Terapis Profesional', 'justg'))); ?></span></h3>
+                    <h3 class="titleLayanan text-dark text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_team', __('Terapis Profesional', 'justg'))); ?></span></h3>
                         <div class="splide team-splide mt-4">
                             <div class="splide__track">
                                 <ul class="splide__list">

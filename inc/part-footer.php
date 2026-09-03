@@ -1,13 +1,13 @@
 <footer class="site-footer p-0" id="colophon">
     <div class="card m-0 bg-colortheme rounded-0 border-0 py-3">
-        <div class="container bg-transparent px-0">
+        <div class="container bg-transparent">
         <?php if (is_active_sidebar('footer-widget-1')) : ?>
             <div class="velocity-footer">
                 <div class="row footer-widget text-start py-5">
                     <?php for ($x = 1; $x <= 3; $x++) {
                         if (is_active_sidebar('footer-widget-' . $x)) : ?>
                             <div class="col-md mb-2">
-                                <div class="card border-0 h-100">
+                                <div class="card border-0 h-100 pb-1">
                                     <?php dynamic_sidebar('footer-widget-' . $x); ?>
                                 </div>
                             </div>

@@ -8,7 +8,9 @@
 get_header();
 ?>
 
-<div class="container p-3 bg-white" id="single-wrapper">
+<div class="wrapper" id="single-wrapper">
+
+    <div class="container">
 
     <div class="row m-0">
         <!-- Do the left sidebar check -->
@@ -34,27 +36,6 @@ get_header();
 
 		<?php endwhile; // end of the loop. ?>
 	</main><!-- #main -->
-    <div class="mt-3 card">
-        <h4 class="text-dark card-header">Team Terkait</h4>
-        <div class="row card-body">
-            <?php 
-            $the_query = new WP_Query( ['post_type' => 'team', 'posts_per_page' => 4 ] );
-            if ( $the_query->have_posts() ) :
-            	while ( $the_query->have_posts() ) :
-            		$the_query->the_post();?>
-                <article <?php post_class('col-md-3 col-6 container border-0 mb-3 px-2'); ?> id="post-<?php the_ID(); ?>">
-                    <div class="card p-0 border-0 shadow rounded-2">
-                        <?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1'); ?>
-                        <?php the_title( sprintf( '<h4 class="text-center fw-bold bg-light p-2 m-0"><a class="text-dark" href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-                            '</a></h4>' ); ?>
-                    </div>
-                </article><!-- #post-## -->
-            	<?php endwhile;
-            endif;
-            wp_reset_postdata();
-            ?>
-        </div>
-    </div>
 
     <!-- Do the right sidebar check. -->
         <?php do_action('justg_after_content'); ?>
