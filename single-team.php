@@ -18,7 +18,7 @@ get_header();
 		<?php while ( have_posts() ) : the_post(); ?>
             <div class="row mb-2">
                 <div class="col-md-4">
-                    <img class="rounded-2 shadow w-100" src="<?php echo aq_resize( get_the_post_thumbnail_url(), 300, 330, true, true, true ); ?>" alt="<?php echo get_the_title(); ?>"/>
+                    <?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1', 'rounded-2 shadow', true); ?>
                 </div>
                 <div class="col-md-8 mt-md-0 mt-3">
                     <h3 class="fw-bold"><?php echo get_the_title(); ?></h3>
@@ -44,15 +44,14 @@ get_header();
             		$the_query->the_post();?>
                 <article <?php post_class('col-md-3 col-6 container border-0 mb-3 px-2'); ?> id="post-<?php the_ID(); ?>">
                     <div class="card p-0 border-0 shadow rounded-2">
-                        <a href="<?php echo get_permalink();?>">
-                            <img src="<?php echo aq_resize( get_the_post_thumbnail_url(), 300, 330, true, true, true ); ?>" class="w-100" alt="<?php echo get_the_title(); ?>"/>
-                        </a>
+                        <?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1'); ?>
                         <?php the_title( sprintf( '<h4 class="text-center fw-bold bg-light p-2 m-0"><a class="text-dark" href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
                             '</a></h4>' ); ?>
                     </div>
                 </article><!-- #post-## -->
             	<?php endwhile;
             endif;
+            wp_reset_postdata();
             ?>
         </div>
     </div>

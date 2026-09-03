@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
 
 get_header();
 
-$container = velocitytheme_option('justg_container_type', 'container');
+$container = velocity_spa_get_option('justg_container_type', 'container');
 ?>
 
 <div class="wrapper" id="archive-wrapper">
@@ -51,7 +51,7 @@ $container = velocitytheme_option('justg_container_type', 'container');
                 }
                 ?>
                 <!-- Display the pagination component. -->
-                <?php justg_pagination(); ?>
+                <?php if (function_exists('justg_pagination')) { justg_pagination(); } else { the_posts_pagination(); } ?>
 
             </main><!-- #main -->
 

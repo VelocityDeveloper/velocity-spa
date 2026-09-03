@@ -28,5 +28,8 @@
  ];
 
  foreach( $includes as $include ) {
-	 require_once( $inc . '/' . $include );
+	 $include_file = $inc . '/' . $include;
+	 if (file_exists($include_file)) {
+		 require_once $include_file;
+	 }
  }

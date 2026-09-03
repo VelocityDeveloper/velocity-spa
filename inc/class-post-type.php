@@ -8,8 +8,8 @@
  * @subpackage Custom_Plugin/includes
  */
 
-class Custom_Plugin_Post_Types
-{
+if (!class_exists('Velocity_Spa_Post_Types')) {
+class Velocity_Spa_Post_Types {
     public function __construct()
     {
         // Hook into the 'init' action
@@ -215,6 +215,9 @@ class Custom_Plugin_Post_Types
     }
 
 }
+}
 
 // Inisialisasi class Custom_Post_Types_Register
-$custom_post_types_register = new Custom_Plugin_Post_Types();
+if (class_exists('Velocity_Spa_Post_Types')) {
+    $velocity_spa_post_types = new Velocity_Spa_Post_Types();
+}
