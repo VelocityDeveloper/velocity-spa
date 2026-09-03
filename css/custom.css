@@ -158,11 +158,15 @@
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 20px;
 }
-.site-main .page-header .page-title, .site-main .entry-header .entry-title {
-	color: var(--bs-primary) !important;
-	padding-bottom: 7px;
-	margin-bottom: 10px;
-	font-weight: bold !important;
+.page-article__title,
+.single-article__title,
+.velocity-page-title,
+.archive-hero .page-title {
+	color: var(--bs-dark) !important;
+	padding: 0;
+	margin: 0 0 .75rem;
+	font-weight: 700 !important;
+	line-height: 1.2;
 	text-transform: none !important;
 	font-size: 1.7rem !important;
 }
@@ -222,15 +226,66 @@ a:hover {color: var(--bs-dark);}
     margin-bottom: 1.2rem;
 }
 .titleLayanan span {
-    padding: 15px 30px;
-    border-radius: 40px 0 40px 0;
-    font-weight: bold;
+    display: inline-block;
+    padding: .8rem 2rem;
+    border-radius: 2rem 0 2rem 0;
+    font-weight: 700;
     text-transform: uppercase;
     font-style: italic;
     background-color: var(--bs-primary);
+    box-shadow: 0 .6rem 1.5rem rgba(33, 37, 41, .1);
 }
 
 .splide__pagination__page.is-active {background: var(--bs-primary);}
+
+.team-splide .splide__track {
+    padding: 1rem 0 2.25rem !important;
+    margin: -1rem 0 -1.25rem;
+}
+
+.team-splide .splide__list {
+    align-items: stretch;
+}
+
+.team-splide .splide__slide {
+    height: auto;
+}
+
+.team-splide .splide__arrow {
+    width: 2.35rem;
+    height: 2.35rem;
+    border: 1px solid rgba(255, 255, 255, .8);
+    background: var(--bs-primary);
+    box-shadow: 0 .4rem 1rem rgba(33, 37, 41, .18);
+    opacity: .92;
+}
+
+.team-splide .splide__arrow svg {
+    fill: var(--bs-white);
+}
+
+.team-splide .splide__pagination {
+    bottom: .1rem;
+}
+
+.team-splide .splide__pagination__page {
+    width: .55rem;
+    height: .55rem;
+    margin: .25rem;
+    background: rgba(108, 117, 125, .35);
+}
+
+.team-splide .splide__pagination__page.is-active {
+    background: var(--bs-primary);
+}
+
+.spa-service-features li::before {
+    display: none;
+}
+
+.spa-service-features svg {
+    color: var(--bs-primary) !important;
+}
 
 .halCircles {
     filter: alpha(opacity=70);

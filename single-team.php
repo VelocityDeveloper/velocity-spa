@@ -21,7 +21,7 @@ get_header();
                     <?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1', 'rounded-2 shadow', true); ?>
                 </div>
                 <div class="col-md-8 mt-md-0 mt-3">
-                    <h3 class="fw-bold"><?php echo get_the_title(); ?></h3>
+                    <h1 class="velocity-page-title"><?php the_title(); ?></h1>
                     <?php echo apply_filters('the_content', get_the_content()); ?>
                 </div>
             </div>

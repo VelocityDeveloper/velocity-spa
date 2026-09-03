@@ -30,9 +30,9 @@ $container = velocity_spa_get_option('justg_container_type', 'container');
 
                 if (have_posts()) {
                 ?>
-                    <header class="page-header block-primary">
+                    <header class="page-header archive-hero">
                         <?php
-						the_archive_title( '<h1 class="text-dark h4">', '</h1>' );
+						the_archive_title( '<h1 class="page-title velocity-page-title">', '</h1>' );
 						the_archive_description( '<div class="taxonomy-description">', '</div>' );
 						?>
                     </header><!-- .page-header -->

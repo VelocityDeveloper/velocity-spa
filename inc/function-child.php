@@ -123,7 +123,6 @@ if (!function_exists('velocity_spa_customize_register')) {
 			'title_layanan' => array('section' => 'velocity_spa_layanan', 'type' => 'text', 'label' => __('Judul Layanan', 'justg'), 'default' => __('Layanan Kami', 'justg'), 'sanitize' => 'sanitize_text_field'),
 			'nowa' => array('section' => 'velocity_spa_kontak', 'type' => 'text', 'label' => __('Nomor WhatsApp', 'justg'), 'default' => '', 'sanitize' => 'sanitize_text_field'),
 			'email' => array('section' => 'velocity_spa_kontak', 'type' => 'email', 'label' => __('Email', 'justg'), 'default' => '', 'sanitize' => 'sanitize_email'),
-			'pesan' => array('section' => 'velocity_spa_kontak', 'type' => 'textarea', 'label' => __('Pesan WhatsApp', 'justg'), 'default' => __('Halo, saya ingin menanyakan tentang layanan.', 'justg'), 'sanitize' => 'sanitize_textarea_field'),
 		);
 
 		foreach ($fields as $setting_id => $field) {
@@ -223,6 +222,27 @@ if (!function_exists('velocity_spa_normalize_phone')) {
 		}
 
 		return ltrim($phone, '+');
+	}
+}
+
+if (!function_exists('velocity_spa_booking_url')) {
+	function velocity_spa_booking_url($post_id = null)
+	{
+		$post_id = $post_id ? absint($post_id) : get_the_ID();
+		$phone = velocity_spa_normalize_phone(velocity_spa_get_option('nowa'));
+		$message = sprintf(
+			__('Halo, saya ingin memesan layanan %1$s. Detail layanan: %2$s', 'justg'),
+			get_the_title($post_id),
+			get_permalink($post_id)
+		);
+
+		return add_query_arg(
+			array(
+				'phone' => $phone,
+				'text'  => $message,
+			),
+			'https://api.whatsapp.com/send'
+		);
 	}
 }
 

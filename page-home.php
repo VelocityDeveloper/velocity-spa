@@ -33,47 +33,6 @@ $sliders = velocity_spa_get_sliders();
 
     <div class="" id="content" tabindex="-1">
         <main class="site-main col order-2" id="main">
-            <?php if(velocity_spa_get_option('team_home', 'on') === 'on') :?>
-            <div class="<?php echo esc_attr($container); ?> my-5">
-                <div class="produk-content">
-                <?php
-                    $args = [
-                        'post_type' => 'team', // Ganti 'produk' dengan nama post type custom Anda
-                        'posts_per_page' => 4, // Jumlah post yang ingin ditampilkan
-                        'order' => 'DESC',
-                        'orderby' => 'date',
-                    ];
-                    
-                    // Membuat instance WP_Query
-                    $product_query = new WP_Query($args);
-                    
-                    // Loop untuk menampilkan post
-                    if ($product_query->have_posts()) { ?>
-                
-                    <h3 class="titleLayanan text-light text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_team', __('Terapis Profesional', 'justg'))); ?></span></h3>
-                        <div class="splide mt-5">
-                            <div class="splide__track">
-                                <ul class="splide__list">
-                            <?php while ($product_query->have_posts()) : $product_query->the_post();?>
-                                <article <?php post_class('splide__slide team-item'); ?> id="post-<?php the_ID(); ?>">
-                                    <div class="card bg-light p-3 border-0 rounded-3 shadow">
-                                        <?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1'); ?>
-                                        <?php the_title( sprintf( '<h2 class="entry-title text-center h4 fw-bold p-2 m-0"><a class="text-dark" href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-                                            '</a></h2>' ); ?>
-                                    </div>
-                                </article><!-- #post-## -->
-                            <?php endwhile;?>
-                                </ul>
-                            </div>
-                        </div>
-                <?php } else {
-                        the_content();
-                    }?>
-                    <?php wp_reset_postdata(); ?>
-                </div>
-            </div>
-            <?php endif; ?>
-            
             <?php if(velocity_spa_get_option('layanan_home', 'on') === 'on') :?>
             <div class="<?php echo esc_attr($container); ?> bg-transparent py-5">
                 <?php
@@ -100,6 +59,42 @@ $sliders = velocity_spa_get_sliders();
                     </div>
                 <?php endif; ?>
                 <?php wp_reset_postdata(); ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if(velocity_spa_get_option('team_home', 'on') === 'on') :?>
+            <div class="<?php echo esc_attr($container); ?> my-5">
+                <div class="produk-content">
+                <?php
+                    $args = [
+                        'post_type' => 'team',
+                        'posts_per_page' => 4,
+                        'order' => 'DESC',
+                        'orderby' => 'date',
+                    ];
+                    $product_query = new WP_Query($args);
+                    if ($product_query->have_posts()) { ?>
+                    <h3 class="titleLayanan text-light text-center h4"><span><?php echo esc_html(velocity_spa_get_option('title_team', __('Terapis Profesional', 'justg'))); ?></span></h3>
+                        <div class="splide team-splide mt-4">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                            <?php while ($product_query->have_posts()) : $product_query->the_post();?>
+                                <article <?php post_class('splide__slide team-item px-2'); ?> id="post-<?php the_ID(); ?>">
+                                    <div class="card h-100 border-0 rounded-4 shadow-sm p-2">
+                                        <div class="overflow-hidden rounded-4"><?php velocity_spa_post_thumbnail(get_the_ID(), 'ratio-1x1'); ?></div>
+                                        <?php the_title( sprintf( '<h2 class="h5 fw-bold text-center p-3 mb-0"><a class="text-dark" href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
+                                            '</a></h2>' ); ?>
+                                    </div>
+                                </article><!-- #post-## -->
+                            <?php endwhile;?>
+                                </ul>
+                            </div>
+                        </div>
+                <?php } else {
+                        the_content();
+                    }?>
+                    <?php wp_reset_postdata(); ?>
+                </div>
             </div>
             <?php endif; ?>
         </main><!-- #main -->
