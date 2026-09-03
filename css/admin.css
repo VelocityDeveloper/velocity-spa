@@ -1,0 +1,51 @@
+#fasilitas-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 15px;
+}
+
+#fasilitas-container .fasilitas-item {
+    flex: 0 0 calc(45% - 7.5px); /* 2 kolom dengan gap */
+    min-width: 0;
+}
+.fasilitas-item:is(:not(:first-child)) input {
+    width: 90%;
+    padding: 5px;
+}
+.fasilitas-item:first-child input {
+    width: 100%;
+    padding: 5px;
+}
+.fasilitas-item {
+    margin: 0; /* Menghapus margin karena sudah menggunakan gap */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    position: relative;
+}
+.remove-fasilitas {
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+}
+
+#add-fasilitas, .remove-fasilitas {
+    padding: 8px;
+    cursor: pointer;
+    color: #0073aa;
+    background-color: transparent;
+    border: 1px solid #0073aa;
+    border-radius: 5px;
+}
+
+/* Responsive: 1 kolom pada layar kecil */
+@media (max-width: 768px) {
+    #fasilitas-container .fasilitas-item {
+        flex: 0 0 100%; /* 1 kolom penuh */
+    }
+}

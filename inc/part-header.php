@@ -1,3 +1,29 @@
+<?php 
+$email = velocitytheme_option('email');
+$nowa = velocitytheme_option('nowa');
+if (substr($nowa, 0, 1) === '0') {
+    $nowa    = '62' . substr($nowa, 1);
+} else if (substr($nowa, 0, 1) === '+') {
+    $nowa    = '' . substr($nowa, 1);
+}
+?>
+<div class="bg-colortheme">
+    <div class="container d-flex justify-content-start align-items-center bg-transparent py-md-0 p-1">
+        <div class="px-2 my-2"><a class="text-white" href="https://wa.me/<?php echo $nowa;?>">
+            <div class="d-flex justify-content-start align-items-center">
+                <span><i class="bg-light rounded-5 fa fa-whatsapp text-dark" aria-hidden="true" style="padding: 5px;"></i></span>
+                <span class="ps-2">+<?php echo $nowa;?></span>
+            </div>
+        </a></div>
+        <div class="px-2 my-2"><a class="text-white" href="mailto:<?php echo $email;?>" target="_blank">
+            <div class="d-flex justify-content-start align-items-center">
+                <span><i class="bg-light rounded-5 fa fa-envelope text-dark" aria-hidden="true" style="padding: 5px;"></i></span>
+                <span class="ps-2"><?php echo $email;?></span>
+            </div>
+        </a></div>
+    </div>
+</div>
+
 <div class="container px-0">
 <nav id="main-navi" class="navbar navbar-expand-md d-block navbar-light pb-0 px-0 pt-0" aria-labelledby="main-nav-label">
 
@@ -6,14 +32,14 @@
     </h2>
 
     <div class="row align-items-center m-0 py-2">
-        <div class="col-9 col-md-3 px-0">
+        <div class="col-9 col-md-3 px-md-0">
             <?php if (has_custom_logo()) {
                 echo '<a href="'.get_home_url().'">';
                     echo get_custom_logo();
                 echo '</a>';
             } ?>
         </div>
-        <div class="col-3 col-md-9 px-0">
+        <div class="col-3 col-md-9 px-md-0">
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarNavOffcanvas">
 
@@ -39,7 +65,7 @@
             </div><!-- .offcanvas -->
 
             <div class="menu-header d-md-none position-relative text-end" data-bs-theme="dark">
-                <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNavOffcanvas" aria-controls="navbarNavOffcanvas" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'justg'); ?>">
+                <button class="navbar-toggler bg-colortheme" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNavOffcanvas" aria-controls="navbarNavOffcanvas" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation', 'justg'); ?>">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
@@ -47,12 +73,4 @@
     </div>
 
 </nav><!-- .site-navigation -->
-</div>
-
-<div class="container px-0">
-    <?php if (has_header_image()) {
-        echo '<a href="'.get_home_url().'">';
-            echo '<img class="w-100 rounded" src="'.esc_url(get_header_image()).'" />';
-        echo '</a>';
-    } ?>
 </div>

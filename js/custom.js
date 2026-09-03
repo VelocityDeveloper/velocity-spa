@@ -7,4 +7,24 @@ jQuery(function($) {
             $(this).find('thead').addClass('table-dark');
         });
     }
+
+    var splide = new Splide( '.splide', {
+        type   : 'loop',
+        perPage: 3,
+        perMove: 1,
+        gap    : '20px',
+        autoplay  : true,
+        interval  : 3000,
+        arrows    : true,
+        pagination: true,
+        breakpoints: {
+            768: {
+                perPage: 2,
+            },
+            480: {
+                perPage: 1,
+            },
+        }
+    } );
+    splide.mount();
 });

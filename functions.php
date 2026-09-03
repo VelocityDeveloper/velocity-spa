@@ -23,6 +23,7 @@
  $includes = [
 	'enqueue.php',
 	'function-child.php',
+	'class-post-type.php',
 	'shortcodes.php'
  ];
 
