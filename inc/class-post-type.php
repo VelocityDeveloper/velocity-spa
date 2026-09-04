@@ -147,7 +147,6 @@ class Velocity_Spa_Post_Types {
             endif;?>
         </div>
         <div style="margin: 10px 0;">
-            <div class="limit-fasilitas"></div>
             <button type="button" id="add-fasilitas">Tambah Fasilitas +</button>
         </div>
         

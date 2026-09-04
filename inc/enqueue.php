@@ -40,6 +40,7 @@ if (!function_exists('custom_enqueue_admin')) {
 function custom_enqueue_admin() {
     $theme = wp_get_theme();
     wp_enqueue_style('admincustom-style', get_stylesheet_directory_uri() . '/css/admin.css', array(), $theme->get('Version'));
-    wp_enqueue_script('admincustom-scripts', get_stylesheet_directory_uri() . '/js/admin.js', array(), $theme->get('Version'), true);
+    $admin_js = get_stylesheet_directory() . '/js/admin.js';
+    wp_enqueue_script('admincustom-scripts', get_stylesheet_directory_uri() . '/js/admin.js', array('jquery'), file_exists($admin_js) ? filemtime($admin_js) : $theme->get('Version'), true);
 }
 }

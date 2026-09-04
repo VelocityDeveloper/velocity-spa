@@ -4,8 +4,7 @@
  *
  * @package velocity
  */
-$fasilitas_layanan = get_post_meta($post->ID, 'fasilitas', true);
-$fasilitas_layanan = is_array($fasilitas_layanan) ? $fasilitas_layanan : array();
+$fasilitas_layanan = velocity_spa_service_facilities(get_the_ID());
 $harga_layanan = velocity_spa_service_price(get_the_ID());
 ?>
 <article <?php post_class('col-lg-4 col-md-6 col-12 mb-4'); ?> id="post-<?php the_ID(); ?>">

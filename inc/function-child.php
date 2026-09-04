@@ -438,3 +438,17 @@ if (!function_exists('velocity_spa_service_price')) {
 		return 'Rp ' . number_format($price, 0, ',', '.');
 	}
 }
+
+if (!function_exists('velocity_spa_service_facilities')) {
+	function velocity_spa_service_facilities($post_id = null)
+	{
+		$post_id = $post_id ? absint($post_id) : get_the_ID();
+		$facilities = get_post_meta($post_id, 'fasilitas', true);
+
+		if (is_string($facilities)) {
+			$facilities = preg_split('/\r\n|\r|\n/', $facilities);
+		}
+
+		return array_values(array_filter(array_map('sanitize_text_field', (array) $facilities)));
+	}
+}
